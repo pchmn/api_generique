@@ -1,0 +1,72 @@
+<script type="text/x-red" data-template-name="api-generique">
+    <h4>Cassandra config</h4>
+    <div class="form-row">
+        <label for="node-input-cassandraHost"><i class="fa fa-globe"></i> Host</label>
+        <input type="text" id="node-input-cassandraHost">
+    </div>
+    <div class="form-row">
+        <label for="node-input-cassandraPort"><i class="fa fa-random"></i> Port</label>
+        <input type="text" id="node-input-cassandraPort">
+    </div>
+        <div class="form-row">
+        <label for="node-input-cassandraUser"><i class="fa fa-user"></i> User</label>
+        <input type="text" id="node-input-cassandraUser">
+    </div>
+        <div class="form-row">
+        <label for="node-input-cassandraPassword"><i class="fa fa-lock"></i> Password</label>
+        <input type="password" id="node-input-cassandraPassword">
+    </div>
+    <div class="form-row">
+        <label for="node-input-cassandraKeyspace"><i class="fa fa-database"></i> Keyspace</label>
+        <input type="text" id="node-input-cassandraKeyspace">
+    </div>
+    <br>
+
+    <h4>ElasticSearch config</h4>
+    <div class="form-row">
+        <label for="node-input-elasticHost"><i class="fa fa-globe"></i> Host</label>
+        <input type="text" id="node-input-elasticHost">
+    </div>
+    <div class="form-row">
+        <label for="node-input-elasticPort"><i class="fa fa-random"></i> Port</label>
+        <input type="text" id="node-input-elasticPort">
+    </div>
+        <div class="form-row">
+        <label for="node-input-elasticUser"><i class="fa fa-user"></i> User</label>
+        <input type="text" id="node-input-elasticUser">
+    </div>
+        <div class="form-row">
+        <label for="node-input-elasticPassword"><i class="fa fa-lock"></i> Password</label>
+        <input type="password" id="node-input-elasticPassword">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('api-generique',{
+        category: 'function',
+        color: '#A6BBCF',
+        inputs: 1,
+        outputs: 1,
+        defaults: {
+            cassandraHost: {value: "127.0.0.1", required:true},
+            cassandraPort: {value: "9042", required:true},
+            cassandraKeyspace: {value: "", required:true},
+            elasticHost: {value: "127.0.0.1", required:true},
+            elasticPort: {value: "9200", required:true},
+        },
+        credentials: {
+            cassandraUser: {type: "text"},
+            cassandraPassword: {type: "password"},
+            elasticUser: {type: "text"},
+            elasticPassword: {type: "password"},           
+        },
+        icon: "function.png",
+        label: function() {
+            return "api-generique";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-help-name="api-generique">
+    <p>A simple node that save data in cassandra data lake with a generic format</p>
+</script>

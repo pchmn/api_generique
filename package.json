@@ -1,0 +1,17 @@
+{
+  "name": "node-red-api-generique",
+  "version": "1.0.6",
+  "description": "API generique",
+  "dependencies": {
+    "cassandra-driver": "^3.2.1",
+    "elasticsearch": "^13.1.0"
+  },
+  "keywords": [
+    "node-red"
+  ],
+  "node-red": {
+    "nodes": {
+      "app": "app/app.js"
+    }
+  }
+}
