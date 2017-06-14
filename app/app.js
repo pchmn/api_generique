@@ -9,9 +9,6 @@ module.exports = function(RED) {
         this.cassandraHost = config.cassandraHost;
         this.cassandraPort = config.cassandraPort;
         this.cassandraKeyspace = config.cassandraKeyspace;
-        // elasticsearch
-        this.elasticHost = config.elasticHost;
-        this.elasticPort = config.elasticPort;
         var node = this;
 
         // cassandra user
@@ -29,13 +26,7 @@ module.exports = function(RED) {
             authProvider: authProvider
         });
 
-        // elasticsearch
-        var elasticClient = new elasticsearch.Client({
-          host: node.credentials.elasticUser+':'+node.credentials.elasticPassword+'@'+node.elasticHost+':'+node.elasticPort,
-        });
-
         node.on('input', function(msg) {
-          // cassandra
           // create the query
           const query = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';
           // get the body of the request
