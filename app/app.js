@@ -1,28 +1,27 @@
 module.exports = function(RED) {
   "use strict";
-  const cassandra = require('cassandra-driver'),
-                    require('elasticsearch');
+  const cassandra = require('cassandra-driver');
 
     function saveData(config) {
         RED.nodes.createNode(this, config);
         // cassandra
-        this.cassandraHost = config.cassandraHost;
-        this.cassandraPort = config.cassandraPort;
-        this.cassandraKeyspace = config.cassandraKeyspace;
+        this.host = config.host;
+        this.port = config.port;
+        this.keyspace = config.keyspace;
         var node = this;
 
         // cassandra user
         var authProvider = null;
         if (node.credentials.user) {
             authProvider = new cassandra.auth.PlainTextAuthProvider(
-                node.credentials.cassandraUser,
-                node.credentials.cassandraPassword
+                node.credentials.user,
+                node.credentials.password
             );
         }
         // connect to cassandra
         var cassandraClient = new cassandra.Client({
-            contactPoints: node.cassandraHost.replace(/ /g, "").split(","),
-            keyspace: node.cassandraKeyspace,
+            contactPoints: node.host.replace(/ /g, "").split(","),
+            keyspace: node.keyspace,
             authProvider: authProvider
         });
 
@@ -30,7 +29,11 @@ module.exports = function(RED) {
           // create the query
           const query = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';
           // get the body of the request
-          var params = msg.req.body;
+          var params = msg.payload;
+          /*if(msg.payload)
+            params = msg.payload;
+          else
+            params = msg.req.body;*/
           // parse the body if it is a string
           if(typeof params === "string")
             params = JSON.parse(params);

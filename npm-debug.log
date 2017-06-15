@@ -1,0 +1,107 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'publish',
+1 verbose cli   './' ]
+2 info using npm@4.1.2
+3 info using node@v7.7.2
+4 verbose publish [ './' ]
+5 silly cache add args [ './', null ]
+6 verbose cache add spec ./
+7 silly cache add parsed spec Result {
+7 silly cache add   raw: './',
+7 silly cache add   scope: null,
+7 silly cache add   escapedName: null,
+7 silly cache add   name: null,
+7 silly cache add   rawSpec: './',
+7 silly cache add   spec: 'C:\\Users\\pchemin\\Development\\api_generique',
+7 silly cache add   type: 'directory' }
+8 verbose addLocalDirectory C:\Users\pchemin\AppData\Roaming\npm-cache\node-red-api-generique\1.0.12\package.tgz not in flight; packing
+9 verbose correctMkdir C:\Users\pchemin\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+10 info lifecycle node-red-api-generique@1.0.12~prepublish: node-red-api-generique@1.0.12
+11 silly lifecycle node-red-api-generique@1.0.12~prepublish: no script for prepublish, continuing
+12 info lifecycle node-red-api-generique@1.0.12~prepare: node-red-api-generique@1.0.12
+13 silly lifecycle node-red-api-generique@1.0.12~prepare: no script for prepare, continuing
+14 verbose tar pack [ 'C:\\Users\\pchemin\\AppData\\Roaming\\npm-cache\\node-red-api-generique\\1.0.12\\package.tgz',
+14 verbose tar pack   'C:\\Users\\pchemin\\Development\\api_generique' ]
+15 verbose tarball C:\Users\pchemin\AppData\Roaming\npm-cache\node-red-api-generique\1.0.12\package.tgz
+16 verbose folder C:\Users\pchemin\Development\api_generique
+17 verbose addLocalTarball adding from inside cache C:\Users\pchemin\AppData\Roaming\npm-cache\node-red-api-generique\1.0.12\package.tgz
+18 verbose correctMkdir C:\Users\pchemin\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+19 silly cache afterAdd node-red-api-generique@1.0.12
+20 verbose afterAdd C:\Users\pchemin\AppData\Roaming\npm-cache\node-red-api-generique\1.0.12\package\package.json not in flight; writing
+21 verbose correctMkdir C:\Users\pchemin\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+22 verbose afterAdd C:\Users\pchemin\AppData\Roaming\npm-cache\node-red-api-generique\1.0.12\package\package.json written
+23 silly publish { name: 'node-red-api-generique',
+23 silly publish   version: '1.0.12',
+23 silly publish   description: 'API generique',
+23 silly publish   dependencies: { 'cassandra-driver': '^3.2.1' },
+23 silly publish   keywords: [ 'node-red' ],
+23 silly publish   'node-red': { nodes: { app: 'app/app.js' } },
+23 silly publish   gitHead: '4560fc1f50af14058c9c7bd2d0f4527c363de332',
+23 silly publish   readme: 'ERROR: No README data found!',
+23 silly publish   _id: 'node-red-api-generique@1.0.12',
+23 silly publish   scripts: {},
+23 silly publish   _shasum: 'ae5046f89f45a498f076ceab94bca25c5a804661',
+23 silly publish   _from: '.' }
+24 info lifecycle node-red-api-generique@1.0.12~prepublishOnly: node-red-api-generique@1.0.12
+25 silly lifecycle node-red-api-generique@1.0.12~prepublishOnly: no script for prepublishOnly, continuing
+26 verbose getPublishConfig undefined
+27 silly mapToRegistry name node-red-api-generique
+28 silly mapToRegistry using default registry
+29 silly mapToRegistry registry https://registry.npmjs.org/
+30 silly mapToRegistry data Result {
+30 silly mapToRegistry   raw: 'node-red-api-generique',
+30 silly mapToRegistry   scope: null,
+30 silly mapToRegistry   escapedName: 'node-red-api-generique',
+30 silly mapToRegistry   name: 'node-red-api-generique',
+30 silly mapToRegistry   rawSpec: '',
+30 silly mapToRegistry   spec: 'latest',
+30 silly mapToRegistry   type: 'tag' }
+31 silly mapToRegistry uri https://registry.npmjs.org/node-red-api-generique
+32 verbose publish registryBase https://registry.npmjs.org/
+33 silly publish uploading C:\Users\pchemin\AppData\Roaming\npm-cache\node-red-api-generique\1.0.12\package.tgz
+34 verbose request uri https://registry.npmjs.org/node-red-api-generique
+35 verbose request sending authorization for write operation
+36 info attempt registry request try #1 at 15:01:46
+37 verbose request using bearer token for auth
+38 verbose request id fd1ef8bfa0c70b06
+39 http request PUT https://registry.npmjs.org/node-red-api-generique
+40 http 403 https://registry.npmjs.org/node-red-api-generique
+41 verbose headers { 'content-type': 'application/json',
+41 verbose headers   'cache-control': 'max-age=300',
+41 verbose headers   'content-length': '96',
+41 verbose headers   'accept-ranges': 'bytes',
+41 verbose headers   date: 'Thu, 15 Jun 2017 13:01:47 GMT',
+41 verbose headers   via: '1.1 varnish',
+41 verbose headers   connection: 'keep-alive',
+41 verbose headers   'x-served-by': 'cache-cdg8720-CDG',
+41 verbose headers   'x-cache': 'MISS',
+41 verbose headers   'x-cache-hits': '0',
+41 verbose headers   'x-timer': 'S1497531706.263332,VS0,VE1332',
+41 verbose headers   vary: 'Accept-Encoding' }
+42 verbose request invalidating C:\Users\pchemin\AppData\Roaming\npm-cache\registry.npmjs.org\node-red-api-generique on PUT
+43 error publish Failed PUT 403
+44 verbose stack Error: "You cannot publish over the previously published version 1.0.12." : node-red-api-generique
+44 verbose stack     at makeError (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:304:12)
+44 verbose stack     at CachingRegistryClient.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:292:14)
+44 verbose stack     at Request._callback (C:\Program Files\nodejs\node_modules\npm\node_modules\npm-registry-client\lib\request.js:212:14)
+44 verbose stack     at Request.self.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:186:22)
+44 verbose stack     at emitTwo (events.js:106:13)
+44 verbose stack     at Request.emit (events.js:194:7)
+44 verbose stack     at Request.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1081:10)
+44 verbose stack     at emitOne (events.js:96:13)
+44 verbose stack     at Request.emit (events.js:191:7)
+44 verbose stack     at IncomingMessage.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\request\request.js:1001:12)
+45 verbose statusCode 403
+46 verbose pkgid node-red-api-generique
+47 verbose cwd C:\Users\pchemin\Development\api_generique
+48 error Windows_NT 10.0.10586
+49 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "publish" "./"
+50 error node v7.7.2
+51 error npm  v4.1.2
+52 error code E403
+53 error "You cannot publish over the previously published version 1.0.12." : node-red-api-generique
+54 error If you need help, you may report this error at:
+54 error     <https://github.com/npm/npm/issues>
+55 verbose exit [ 1, true ]
