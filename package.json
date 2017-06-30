@@ -1,6 +1,6 @@
 {
   "name": "node-red-api-generique",
-  "version": "1.0.12",
+  "version": "1.0.20",
   "description": "API generique",
   "dependencies": {
     "cassandra-driver": "^3.2.1"

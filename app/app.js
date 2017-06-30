@@ -26,23 +26,37 @@ module.exports = function(RED) {
         });
 
         node.on('input', function(msg) {
-          // create the query
-          const query = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';
           // get the body of the request
           var params = msg.payload;
-          /*if(msg.payload)
-            params = msg.payload;
-          else
-            params = msg.req.body;*/
           // parse the body if it is a string
           if(typeof params === "string")
             params = JSON.parse(params);
+          
+          // set or get
+          /*if(params.data.action === "set")
+            saveInCassandra(params, cassandraClient)
+          else if(params.data.action === "get")
+            getFromCassandra(params, cassandraClient)*/
+
+          // create the query
+          var query = '';
+          const queryInsertWithoutId = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';
+          const queryInsertWithId = 'insert into sensorvalues (id, header, data) values (:id, :header, :data)';
+
           // put timestamp in milliseconds
           if(params.header.timestamp)
-            params.header.date = params.header.timestamp * 1000;
+            params.header.date = params.header.timestamp;
           // if no timestamp get current time of the server
           else
-            params.header.date = new Date().getTime();
+            params.header.date = new Date().getTime()
+
+          // insert or update
+          if(params.id) {
+            query = queryInsertWithId;
+          }
+          else {
+            query = queryInsertWithoutId;
+          }
 
           // execute the query
           cassandraClient.execute(query, params, { prepare: true })
@@ -57,6 +71,46 @@ module.exports = function(RED) {
             })
         });
     }
+
+    function saveInCassandra(params, cassandraClient) {
+      // create the query
+      const query = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';;
+      const queryInsert = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';
+      const queryUpdate = 'insert into sensorvalues (id, header, data) values (:id, :header, :data)'
+
+      // put timestamp in milliseconds
+      if(params.header.timestamp)
+        params.header.date = params.header.timestamp * 1000;
+      // if no timestamp get current time of the server
+      else
+        params.header.date = new Date().getTime()
+
+      // insert or update
+      /*if(params.header.id) {
+        params.id = params.header.id
+        query = queryUpdate;
+      }
+      else {
+        query = queryInsert;
+      }*/
+
+      // execute the query
+      cassandraClient.execute(query, params, { prepare: true })
+        .then(result => {
+            msg.payload = {};
+            msg.payload.result = "success";
+            msg.payload.objectSaved = params;
+            node.send(msg);
+        })
+        .catch(err => {
+          node.error(err, msg);
+        })
+    }
+
+    function getFromCassandra(params, cassandraClient) {
+
+    }
+
     RED.nodes.registerType("api-generique", saveData, {
         credentials: {
             user: {type: "text"},
