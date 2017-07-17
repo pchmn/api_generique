@@ -8,6 +8,7 @@ module.exports = function(RED) {
         this.host = config.host;
         this.port = config.port;
         this.keyspace = config.keyspace;
+        this.table = config.table;
         var node = this;
 
         // cassandra user
@@ -27,10 +28,10 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
           // get the body of the request
-          var params = msg.payload;
-          // parse the body if it is a string
-          if(typeof params === "string")
-            params = JSON.parse(params);
+          var sensorValues = msg.payload.cassandraSensorValues;
+          var genericFormat = msg.payload.cassandraGenericFormat;
+          // get table to save in
+          var table = msg.table || node.table;
           
           // set or get
           /*if(params.data.action === "set")
@@ -39,31 +40,43 @@ module.exports = function(RED) {
             getFromCassandra(params, cassandraClient)*/
 
           // create the query
-          var query = '';
-          const queryInsertWithoutId = 'insert into sensorvalues (id, header, data) values (uuid(), :header, :data)';
-          const queryInsertWithId = 'insert into sensorvalues (id, header, data) values (:id, :header, :data)';
+          var querySensorValues = '';
+          var queryGenericFormat = '';
+          const queryInsertWithoutId = function(table) {
+            return 'insert into '+ table +' (id, header, data) values (uuid(), :header, :data)';
+          };
+          const queryInsertWithId = function(table) {
+            return 'insert into '+ table +' (id, header, data) values (:id, :header, :data)';
+          };
 
           // put timestamp in milliseconds
-          if(params.header.timestamp)
-            params.header.date = params.header.timestamp;
+          if(sensorValues.header.timestamp) {
+            sensorValues.header.date = sensorValues.header.timestamp;
+            genericFormat.header.date = sensorValues.header.timestamp;
+          }
           // if no timestamp get current time of the server
-          else
-            params.header.date = new Date().getTime()
+          else {
+            sensorValues.header.date = new Date().getTime() / 1000;
+            genericFormat.header.date = new Date().getTime() / 1000;
+          }
 
           // insert or update
-          if(params.id) {
-            query = queryInsertWithId;
+          if(msg.payload.id) {
+            querySensorValues = queryInsertWithId(table);
+            queryGenericFormat = queryInsertWithId('genericformat_' + table);
           }
           else {
-            query = queryInsertWithoutId;
+            querySensorValues = queryInsertWithoutId(table);
+            queryGenericFormat = queryInsertWithoutId('genericformat_' + table);
           }
 
           // execute the query
-          cassandraClient.execute(query, params, { prepare: true })
+          cassandraClient.execute(querySensorValues, sensorValues, { prepare: true })
+            .then(cassandraClient.execute(queryGenericFormat, genericFormat, { prepare: true }))
             .then(result => {
                 msg.payload = {};
                 msg.payload.result = "success";
-                msg.payload.objectSaved = params;
+                msg.payload.objectSaved = sensorValues;
                 node.send(msg);
             })
             .catch(err => {

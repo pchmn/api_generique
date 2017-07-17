@@ -20,6 +20,11 @@
         <label for="node-input-keyspace"><i class="fa fa-database"></i> Keyspace</label>
         <input type="text" id="node-input-keyspace">
     </div>
+
+    <div class="form-row">
+        <label for="node-input-table"><i class="fa fa-database"></i> Table</label>
+        <input type="text" id="node-input-table">
+    </div>
     <br>
 </script>
 
@@ -33,6 +38,7 @@
             host: {value: "127.0.0.1", required:true},
             port: {value: "9042", required:true},
             keyspace: {value: "", required:true},
+            table: {value: "", required: true}
         },
         credentials: {
             user: {type: "text"},
